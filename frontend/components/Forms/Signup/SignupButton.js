@@ -1,31 +1,39 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { showSignupForm } from "../../../redux/actions/ShowSignupFormAction";
-import SignupModal from "./SignupModal";
+import { useDispatch, useSelector } from 'react-redux';
+import { exitSignupForm } from '../../../redux/actions/ShowSignupFormAction';
+import { register } from '../../../redux/actions/userActions';
 
-const Signup = () => {
+const SignUpButton = () => {
+
+  const email = useSelector(state => state.email);
+  const password = useSelector(state => state.password);
+  const userName = useSelector(state => state.userName);
+  const userLogin = useSelector(state => state.userLogin)
+  const shouldShowLoginForm = useSelector(state => state.shouldShowLoginForm);
 
   const dispatch = useDispatch();
-  const shouldShowSignupForm = useSelector(state => state.shouldShowSignupForm);
 
-  const signUpForm = async () => {
-    console.log('1')
-    await dispatch(showSignupForm(!shouldShowSignupForm))    
+  const submitHandler = async (e) => {
+    e.preventDefault()
+    //Dispatch Login
+    await dispatch(register(userName, email, password))
+    if (userLogin) {
+      await dispatch(exitSignupForm(!shouldShowLoginForm)) 
+    }
   }
 
   return (
-    <>
-      <button
-        type="button"
-        onClick={signUpForm}
-        className="inline-flex items-center ml-2 px-3 py-3.5 border border-transparent  text-xs font-extrabold rounded-full shadow-sm text-white bg-header hover:bg-white hover:text-header ">
-        Signup
-      </button>
-    {shouldShowSignupForm && <div>
-        <SignupModal />
-    </div>}
-    </>
+    <div>      
+      <div>
+        <button
+          type="submit"
+          onClick={submitHandler}
+          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-header hover:transition duration-500 hover:scale-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-header"
+        >
+          Sign Up
+        </button>
+      </div>
+    </div>
   );
 }
 
-export default Signup;
+export default SignUpButton;

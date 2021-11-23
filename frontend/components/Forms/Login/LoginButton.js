@@ -18,7 +18,6 @@ const Login = () => {
         className="inline-flex items-center ml-2 px-3 py-3.5 border border-transparent  text-xs font-extrabold rounded-full shadow-sm text-white bg-header hover:bg-white hover:text-header ">
         Login
       </button>
-    {console.log('it should show',{shouldShowLoginForm})}
     {shouldShowLoginForm && <div>
       <LoginModal />
     </div>}

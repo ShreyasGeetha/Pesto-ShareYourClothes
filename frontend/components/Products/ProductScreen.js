@@ -22,36 +22,34 @@ function classNames(...classes) {
 const ProductScreen = ({productId}) => {
   const router = useRouter();
   
-  console.log('Router query',router)
   const [selectedSize, setSelectedSize] = useState('')
   const dispatch = useDispatch();
   const productDetails = useSelector(state => state.productDetails);
+  const currentProduct = useSelector(state => state.currentProduct);
   const shouldShowLoginForm = useSelector(state => state.shouldShowLoginForm);
-
+  const userLogged = useSelector(state => state.userLogged);
   const { product } = productDetails;
-  console.log('product information', [product])
   const userLogin = useSelector(state => state.userLogin)
   var { userInfo, isUserloggedIn } = userLogin
  
-  console.log('111', productId)
   
   useEffect(() => {
-    console.log('what is the product id value now', productId);
     const getProductDetails = async () => {
-      await dispatch(listProductDetails(productId))
+       console.log('print the value 1', currentProduct._id)     
+      if (productId == 'undefined') {
+         console.log('print the value', currentProduct._id)
+        productId = currentProduct._id
+       await dispatch(listProductDetails(productId))
+      } else {
+        await dispatch(listProductDetails(productId))
+      }
     }
     getProductDetails()
-    if (userInfo) {
-      isUserloggedIn = true
-    } else {
-      isUserloggedIn = false
-    }
-    
+  
   },[productId,userLogin])
 
   const showSignUpForm = async (e) => {
     e.preventDefault()
-    console.log('1')
     await dispatch(showLoginForm(!shouldShowLoginForm))    
   }
 
@@ -125,7 +123,7 @@ const ProductScreen = ({productId}) => {
                     </div>
                   </RadioGroup>
                 </div>
-                {isUserloggedIn && <Link href={{
+                {userLogged && <Link href={{
                   pathname: '/cart/Cart',
                   query: {
                     productId: `${productId}`
@@ -138,7 +136,7 @@ const ProductScreen = ({productId}) => {
                     Add to cart
                   </button>                
                 </Link>}
-                {!isUserloggedIn &&
+                {!userLogged &&
                   <button
                     type="submit"
                     onClick={showSignUpForm}
@@ -158,8 +156,16 @@ const ProductScreen = ({productId}) => {
                   className="mt-4 prose prose-sm text-gray-500"
                   dangerouslySetInnerHTML={{ __html: product.description }}
                 />
-              </div> 
-            </div>
+              </div>
+              <div className="mt-10">
+                <h2 className="text-sm font-medium text-gray-900">Pickup Location</h2>
+
+                <div
+                  className="mt-4 prose prose-sm text-gray-500"
+                  dangerouslySetInnerHTML={{ __html: product.dropLocation }}
+                />
+              </div>  
+            </div>           
           </div>
         </div>
       </div>

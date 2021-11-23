@@ -71,6 +71,14 @@ const productSchema = mongoose.Schema({
     type: String,
     required: false
   },
+  pickupTime: {
+    type: String,
+    required: true
+  },
+  dropLocation: {
+    type: String,
+    required: true
+  }
 
 })
 

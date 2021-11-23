@@ -18,7 +18,9 @@ const products = [
     description: "This is a sample description, which will be used for all clothes. Later this needs to be changed",
     category: 'Shirt',
     isVisible: true,
-    brand: 'Arrow'
+    brand: 'Arrow',
+    pickupTime: 'Between 10am to 5pm',
+    dropLocation: '#123, DummyStreet 2, DummyRoad, DummyCity, Pincode - 999999'
   },  
   {
     name: 'Jean Jacket',
@@ -39,7 +41,9 @@ const products = [
     description: "This is a sample description, which will be used for all clothes. Later this needs to be changed",
     category: 'Jacket',
     isVisible: true,
-    brand: 'Denim'
+    brand: 'Denim',
+    pickupTime: 'Between 10am to 5pm',
+    dropLocation: '#123, DummyStreet 2, DummyRoad, DummyCity, Pincode - 999999'
   },
   {
     name: 'Jean Shirt Full',
@@ -59,7 +63,9 @@ const products = [
     description: "This is a sample description, which will be used for all clothes. Later this needs to be changed",
     category: 'Shirt',
     isVisible: true,
-    brand: 'Levis'
+    brand: 'Levis',
+    pickupTime: 'Between 10am to 5pm',
+    dropLocation: '#123, DummyStreet 3, DummyRoad, DummyCity, Pincode - 999999'
   },
   {
     name: 'Blazer',
@@ -79,7 +85,9 @@ const products = [
     description: "This is a sample description, which will be used for all clothes. Later this needs to be changed",
     category: 'Blazer',
     isVisible: true,
-    brand: 'Raymond'
+    brand: 'Raymond',
+    pickupTime: 'Between 10am to 5pm',
+    dropLocation: '#123, DummyStreet 3, DummyRoad, DummyCity, Pincode - 999999'
   },
   {
     name: 'Jacket Full',
@@ -100,7 +108,9 @@ const products = [
     description: "This is a sample description, which will be used for all clothes. Later this needs to be changed",
     category: 'Jacket',
     isVisible: true,
-    brand: 'Levis'
+    brand: 'Levis',
+    pickupTime: 'Between 10am to 5pm',
+    dropLocation: '#123, DummyStreet, DummyRoad, DummyCity, Pincode - 999999'
   },
   {
     name: 'Checks Shirt Full',
@@ -120,7 +130,9 @@ const products = [
     description: "This is a sample description, which will be used for all clothes. Later this needs to be changed",
     category: 'Shirt',
     isVisible: true,
-    brand: 'Polo'
+    brand: 'Polo',
+    pickupTime: 'Between 10am to 5pm',
+    dropLocation: '#123, DummyStreet, DummyRoad, DummyCity, Pincode - 999999'
   },
   {
     name: 'Basic Tee',
@@ -140,8 +152,10 @@ const products = [
     color: 'White',
     description: "This is a sample description, which will be used for all clothes. Later this needs to be changed",
     category: 'T-Shirt',
-    isVisible: false,
-    brand: 'Nike'
+    isVisible: true,
+    brand: 'Nike',
+    pickupTime: 'Between 10am to 5pm',
+    dropLocation: '#456, DummyStreet, DummyRoad, DummyCity, Pincode - 999999'
   },
   {
     name: 'Basic Tee',
@@ -162,7 +176,9 @@ const products = [
     description: "This is a sample description, which will be used for all clothes. Later this needs to be changed",
     category: 'Tee',
     isVisible: true,
-    brand: 'adidas'
+    brand: 'adidas',
+    pickupTime: 'Between 10am to 5pm',
+    dropLocation: '#456, DummyStreet, DummyRoad, DummyCity, Pincode - 999999'
   },
   {
     name: 'Baby Clothes',
@@ -182,7 +198,9 @@ const products = [
     description: "This is a sample description, which will be used for all clothes. Later this needs to be changed",
     category: 'infantClothes',
     isVisible: true,
-    brand: 'babyshop'
+    brand: 'babyshop',
+    pickupTime: 'Between 10am to 5pm',
+    dropLocation: '#456, DummyStreet, DummyRoad, DummyCity, Pincode - 999999'
   },
   // More products...
 ]

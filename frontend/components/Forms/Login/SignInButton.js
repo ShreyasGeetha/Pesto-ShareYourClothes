@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { invalidUserNamePasswordError, showEmailError, showPasswordError } from '../../../redux/actions/FormActions';
 import { exitLoginForm } from '../../../redux/actions/ShowLoginFormAction';
 import { login } from '../../../redux/actions/userActions';
 
@@ -13,12 +14,29 @@ const SignInButton = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault()
-    //Dispatch Login
-    await dispatch(login(email, password))
-    if (userLogin) {
-      await dispatch(exitLoginForm(!shouldShowLoginForm)) 
+    if (email) {
+      if (password) {
+        const res = await dispatch(login(email, password, true))
+        console.log('response on login', res)
+        if (userLogin) {
+          if (userLogin.error) {
+            console.log('The error message is', userLogin.error)
+            await dispatch(invalidUserNamePasswordError())
+          } else {
+            await dispatch(exitLoginForm(!shouldShowLoginForm)) 
+          }                    
+        }  
+      } else {
+        await dispatch(showPasswordError())
+      }
+    } else {
+       await dispatch(showEmailError())
     }
-  }
+      
+  } 
+    //Dispatch Login
+    
+  
 
   return (
     <div>      

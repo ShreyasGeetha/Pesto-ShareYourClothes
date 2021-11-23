@@ -9,47 +9,40 @@ const orderSchema = mongoose.Schema({
   },
   orderItems: [
     {
-      name: {
-        type: String,
-        required: true
-      },    
-      image: {
-        type: String,
-        required: true
+     name: {
+    type: String,
+    required: true
+    },
+    imageSrc: {
+      type: String,
+      required: true
+    },
+    imageAlt: {
+      type: String,
+      required: true
+    },
+    brand: {
+      type: String,
+      required: true
       },
-      product: {
-        type: mongoose.Schema.Types.ObjectId, // which user created which product
-        required: true,
-        ref: 'Product'
-      },    
+    color: {
+      type: String,
+      required: true
+      },
+    size: {
+      type: String,
+      required: true
+      },
+    pickupTime: {
+      type: String,
+      required: true
+      },
+    dropLocation: {
+      type: String,
+      required: true
+    },
     }    
-  ], 
-  dropLocation: [
-    {
-      address: {
-        type: String,
-        required: true
-      },    
-      city: {
-        type: String,
-        required: true
-      },
-      postalCode: {
-        type: String,
-        required: true
-      },    
-      country: {
-        type: String,
-        required: true
-      },
-    }
-  ],
-  isDelivered: {
-    type: Boolean,
-    required: true,
-    default: false
-  },
-
+  ],   
 });
 
 // create a model in mongodb called User using userSchema

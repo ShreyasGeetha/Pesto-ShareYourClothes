@@ -1,9 +1,9 @@
-import ShoppingCart from "../../components/ShoppingCart/ShoppingCart";
+import ShoppingCartTwo from "../../components/ShoppingCart/ShoppingCartTwo";
 
 const Cart = () => {
   return (
     <div>
-      <ShoppingCart></ShoppingCart>
+      <ShoppingCartTwo />
     </div>
   );
 }

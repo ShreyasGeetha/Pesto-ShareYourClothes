@@ -177,31 +177,42 @@ const Header = () => {
                       
                       <Menu.Items className="origin-top-right absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none">
                       
-                        <div className="hover:bg-gray-100">
-                    <Link href="/userprofile/UserProfile">
-                      <a>
-                      <button
-                        type="button"                          
-                        className="block py-2 px-4 text-sm text-gray-700 ">
-                        Your Profile
-                      </button>
-                    </a>
-                  </Link>
+                        <div className="hover:bg-gray-100 group border-2 bg-header">
+                          <Link href="/userprofile/UserProfile">
+                            <a>
+                              <button
+                                type="button"                          
+                                className="block py-2 px-4 text-sm text-white group-hover:text-header  ">
+                                Your Profile
+                              </button>
+                            </a>
+                          </Link>
+                        </div>
+                        <div className="hover:bg-gray-100 group border-2 bg-header">
+                          <Link href="/product/ProductUpload">
+                            <a>
+                              <button
+                                type="button"                          
+                                className="block py-2 px-4 text-sm text-white    group-hover:text-header">
+                                Share Clothes
+                              </button>
+                            </a>
+                          </Link>
                         </div> 
-                        <div className="hover:bg-gray-100">
+                        <div className="hover:bg-gray-100 group border-2 bg-header">
                         <button
                           type="button"                          
-                          className="block py-2 px-4 text-sm text-gray-700 ">
+                          className="block py-2 px-4 text-sm text-white group-hover:text-header  ">
                           Settings
                         </button>
                         </div> 
-                        <div className="hover:bg-gray-100">
+                        <div className="hover:bg-gray-100  group border-2 bg-header">
                         <Link href="/">
                           <a>
                             <button
                                 type="button"
                                 onClick={signOut}  
-                              className="block py-2 px-4 text-sm text-gray-700 ">
+                              className="block py-2 px-4 text-sm  text-white group-hover:text-header  ">
                               Sign out
                             </button>
                           </a>
@@ -229,36 +240,47 @@ const Header = () => {
                     <div className="flex-shrink-0">
                       <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
                     </div>
-                    <div className="ml-3">
+                    <div className="ml-3 mb-2">
                       <div className="text-base font-medium text-gray-50">{userInfo.name}</div>
                       <div className="text-sm font-medium text-gray-50">{userInfo.email}</div>
                     </div>                  
                 </div>
-                <div className="hover:bg-gray-100">
+                <div className="hover:bg-gray-100 group border-2">
                   <Link href="/userprofile/UserProfile">
                     <a>
                     <button
                       type="button"                          
-                      className="block py-2 px-4 text-sm text-gray-50 hover:bg-white hover:text-header">
+                      className="block py-2 px-4 text-sm group-hover:text-header text-gray-50 ">
                       Your Profile
                     </button>
                   </a>
                   </Link>
-                  </div> 
-                  <div className="hover:bg-gray-100">
+                </div>
+                 <div className="hover:bg-gray-100 group border-2">
+                  <Link href="/product/ProductUpload">
+                    <a>
+                    <button
+                      type="button"                          
+                    className="block py-2 px-4 text-sm text-gray-50 group-hover:text-header">
+                      Share Clothes
+                    </button>
+                  </a>
+                  </Link>
+                </div> 
+                  <div className="hover:bg-gray-100 group border-2">
                   <button
                     type="button"                          
-                    className="block py-2 px-4 text-sm text-gray-50 hover:bg-white hover:text-header">
+                    className="block py-2 px-4 text-sm text-gray-50 group-hover:text-header">
                     Settings
                   </button>
                   </div> 
-                  <div className="hover:bg-gray-100 group hover:text-header">
+                  <div className="hover:bg-gray-100 group border-2">
                   <Link href="/">
                     <a>
                       <button
                           type="button"
                           onClick={signOut}  
-                        className="block py-2 px-4 text-sm text-gray-50 group-hover:bg-white group-hover:text-header">
+                        className="block py-2 px-4 text-sm text-gray-50  group-hover:text-header">
                         Sign out
                       </button>
                     </a>
@@ -266,16 +288,16 @@ const Header = () => {
                   </div>             
                 </div>}
               
-              {userLogged && <div>
+              {userLogged && <div className="border-b-2 border-t-1">
                     <Link href="/cart/Cart">
                     <a             
                       className="ml-0.5 group flex-shrink-0  rounded-full p-1 text-gray-400 hover:text-gray-500 "
                     >                                                
-                      <button className="py-3.5 px-3.5 relative border-2 border-transparent text-gray-50 rounded-full hover:text-white  group-hover:bg-white focus:outline-none focus:text-gray-50 transition duration-150 ease-in-out" aria-label="Cart">
+                      <button className="py-2.5 px-3.5 relative border-2 border-transparent text-gray-50 rounded-full hover:text-white  group-hover:bg-white focus:outline-none focus:text-gray-50 transition duration-150 ease-in-out" aria-label="Cart">
                         <svg className="h-6 w-6 group-hover:text-header" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                           <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
                         </svg>
-                        <span className="absolute  inset-0 object-right-top -mr-7 -mr-1 -mt-1">
+                        <span className="absolute  inset-0 object-right-top -mr-7 -mr-1 -mt-2">
                           <div className="inline-flex group-hover:text-header
                             items-center   rounded-full  text-sm font-semibold leading-4  text-white">
                             {cartItems.length}

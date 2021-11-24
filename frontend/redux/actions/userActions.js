@@ -89,21 +89,7 @@ export const setUserName = (userName) => (dispatch) => {
 }
 
 
-export const setEmail = (email) => (dispatch) => {
-  console.log(email)
-  try {
-    dispatch({
-      type: EMAIL,
-      payload: email
-    })
-    dispatch({
-      type: DISABLE_EMAIL_ERROR,
-      payload: false
-    })
-  } catch (error) {
-    
-  }
-}
+
 
 export const clearEmail = (email) => (dispatch) => {
   console.log('Clear Email')
@@ -249,5 +235,21 @@ export const updateUserProfile = (user) => async (dispatch,getState) =>{
         ? error.response.data.message
         : error.response
     })
+  }
+}
+
+export const setEmail = (email) => (dispatch) => {
+  console.log(email)
+  try {
+    dispatch({
+      type: EMAIL,
+      payload: email
+    })
+    dispatch({
+      type: DISABLE_EMAIL_ERROR,
+      payload: false
+    })
+  } catch (error) {
+    
   }
 }

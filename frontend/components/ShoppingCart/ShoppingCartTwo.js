@@ -14,15 +14,20 @@ const ShoppingCartTwo = () => {
   const cart = useSelector(state => state.cart);  
   const productId = router.query.productId;
   const isCartEmpty = cart.isCartEmpty;
+  const userLogin = useSelector(state => state.userLogin)
 
   useEffect(() => {
-
+    
     const addCart = async () => {
       await dispatch(addToCart(productId))
     }
+    console.log('has user logged in', userLogin)
+    if (userLogin.userInfo.length !== 0) {
+      addCart();
+    } else {
+      router.push('/');
+    }
 
-    addCart()
-    
   }, [dispatch,productId])
   
   const removeFromCart = async (id) => {

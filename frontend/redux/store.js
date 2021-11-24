@@ -18,6 +18,7 @@ import {
   emailErrorReducer, invalidUserNamePasswordErrorReducer,
   passwordErrorReducer, usernameErrorReducer
 } from './reducers/Forms/FormReducer'
+import { productBrandErrorReducer, productCategoryErrorReducer, productColorErrorReducer, productDescriptionErrorReducer, productDropLocationErrorReducer, productImageAltErrorReducer, productImageErrorReducer, productNameErrorReducer, productPickupTimeErrorReducer, productSizeErrorReducer, setProductBrandReducer, setProductCategoryReducer, setProductColorReducer, setProductDescriptionReducer, setProductDropLocationReducer, setProductImageAltReducer, setProductImageReducer, setProductNameReducer, setProductPickupTimeReducer, setProductSizeReducer } from './reducers/products/productUploadReducer';
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -39,7 +40,27 @@ const reducer = combineReducers({
   usernameError: usernameErrorReducer,
   invalidUserNamePassword: invalidUserNamePasswordErrorReducer,
   orderCreate: createOrderReducer,
-  orderListMy: orderListMyReducer
+  orderListMy: orderListMyReducer,
+  productName: setProductNameReducer,
+  setProductBrand: setProductBrandReducer,
+  productColor: setProductColorReducer,
+  productCategory: setProductCategoryReducer,
+  productDescription: setProductDescriptionReducer,
+  productDropLocation: setProductDropLocationReducer,
+  productImage: setProductImageReducer,
+  productImageAlt: setProductImageAltReducer,
+  productPickupTime: setProductPickupTimeReducer,
+  productSize: setProductSizeReducer,
+  productNameError: productNameErrorReducer,
+  productCategoryError: productCategoryErrorReducer,
+  productColorError: productColorErrorReducer,
+  productBrandError: productBrandErrorReducer,
+  productDescriptionError: productDescriptionErrorReducer,
+  productDropLocationError: productDropLocationErrorReducer,
+  productImageError: productImageErrorReducer,
+  productImageAltError: productImageAltErrorReducer,
+  productPickupTimeError: productPickupTimeErrorReducer,
+  productSizeError: productSizeErrorReducer
 })
 
 const cartItemsFromStorage = [{}]
@@ -100,7 +121,17 @@ const initialState = {
   passwordError: false,
   emailError: false,
   usernameError: false,
-  invalidUserNamePassword: false
+  invalidUserNamePassword: false,
+  productNameError: false,
+  productCategoryError: false,
+  productColorError: false,
+  productBrandError: false,
+  productDescriptionError: false,
+  productDropLocationError: false,
+  productImageError: false,
+  productImageAltError: false,
+  productPickupTimeError: false,
+  productSizeError: false,
 }
 
 const middleware = [thunk]

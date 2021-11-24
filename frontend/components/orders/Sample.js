@@ -1,24 +1,29 @@
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listMyOrders } from "../../redux/actions/orderActions";
 
 
-
-
-
 const Sample = () => {
 
+  const router = useRouter();
   const dispatch = useDispatch();
   const orderListMy = useSelector(state => state.orderListMy);
   const { loading, orders, error } = orderListMy
   console.log('the value appearing', loading)
-
+  const userLogin = useSelector(state => state.userLogin)
+  
   useEffect(() => {
+
     const init = async () => {
       await dispatch(listMyOrders())      
     }
 
-    init()
+    if (userLogin.userInfo.length !== 0) {
+      init();
+    } else {
+      router.push('/');
+    } 
   },[])
 
 

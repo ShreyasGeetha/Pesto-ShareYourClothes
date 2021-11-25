@@ -1,18 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import MenuButtonCategory from "./MenuButtonCategory";
 
 
 const ProductCategory = () => {
 
-  const dispatch = useDispatch();
   const productCategoryError = useSelector(state => state.productCategoryError)
 
 
-  const setProductCategory = async (e) => {
-    
-    await dispatch(setProductCategory(e.target.value))
-  }
-  
+
   return (
     <>
       <div>

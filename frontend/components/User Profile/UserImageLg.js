@@ -4,6 +4,12 @@ const userProf = {
 }
 
 const UserImageLg = () => {
+
+  const uploadFile = (e) => {
+    const file = e.target.files[0]
+    console.log('file size is ', file.size)
+  }
+
   return (
     <>
       <div className="hidden relative rounded-full overflow-hidden lg:inline-block">
@@ -17,6 +23,7 @@ const UserImageLg = () => {
           <input
             type="file"
             id="desktop-user-photo"
+            onChange={uploadFile}
             name="user-photo"
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
           />

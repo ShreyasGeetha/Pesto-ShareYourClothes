@@ -2,14 +2,14 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { productListReducer } from './reducers/products/productReducer'
+import { productDeleteReducer, productListReducer } from './reducers/products/productReducer'
 import { currentProductDetailsReducer, productDetailsReducer } from './reducers/products/productDetailsReducer'
 import {cartReducer } from './reducers/cart/cartReducer'
 import { showLoginFormReducer, showSignupFormReducer } from './reducers/cart/showLoginFormReducer';
 import {
   userRegisterReducer, setEmailReducer, setPasswordReducer,
   userLoginReducer, setUserNameReducer, userDetailsReducer,
-  user_isLoggedReducer, userUpdateProfileReducer, setReducer
+  user_isLoggedReducer, userUpdateProfileReducer, setReducer, getAllDetailsReducer, userDeleteReducer
 } from './reducers/user/userReducers'
 import {
   createOrderReducer, orderListMyReducer
@@ -18,7 +18,9 @@ import {
   emailErrorReducer, invalidUserNamePasswordErrorReducer,
   passwordErrorReducer, usernameErrorReducer
 } from './reducers/Forms/FormReducer'
-import { productBrandErrorReducer, productCategoryErrorReducer, productColorErrorReducer, productDescriptionErrorReducer, productDropLocationErrorReducer, productImageAltErrorReducer, productImageErrorReducer, productNameErrorReducer, productPickupTimeErrorReducer, productSizeErrorReducer, setProductBrandReducer, setProductCategoryReducer, setProductColorReducer, setProductDescriptionReducer, setProductDropLocationReducer, setProductImageAltReducer, setProductImageReducer, setProductNameReducer, setProductPickupTimeReducer, setProductSizeReducer } from './reducers/products/productUploadReducer';
+import {
+  productBrandErrorReducer, productCategoryErrorReducer, productColorErrorReducer, productDescriptionErrorReducer, productDropLocationErrorReducer, productImageAltErrorReducer, productImageErrorReducer, productNameErrorReducer, productPickupTimeErrorReducer, productSizeErrorReducer, setProductBrandReducer, setProductCategoryReducer, setProductColorReducer, setProductDescriptionReducer, setProductDropLocationReducer, setProductImageAltReducer, setProductImageReducer, setProductNameReducer, setProductPickupTimeReducer, setProductSizeReducer
+} from './reducers/products/productUploadReducer';
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -29,6 +31,9 @@ const reducer = combineReducers({
   userName: setUserNameReducer,
   userLogin: userLoginReducer,
   userLogged: user_isLoggedReducer,
+  allUsers: getAllDetailsReducer,
+  userDelete: userDeleteReducer,
+  productDelete: productDeleteReducer,
   email: setReducer,
   password: setPasswordReducer,
   userRegister: userRegisterReducer,
@@ -42,7 +47,7 @@ const reducer = combineReducers({
   orderCreate: createOrderReducer,
   orderListMy: orderListMyReducer,
   productName: setProductNameReducer,
-  setProductBrand: setProductBrandReducer,
+  productBrand: setProductBrandReducer,
   productColor: setProductColorReducer,
   productCategory: setProductCategoryReducer,
   productDescription: setProductDescriptionReducer,
@@ -68,7 +73,7 @@ const orderItemsFromStorage = [{}]
 const currentProductFromStorage = [{}]
 const userInfoFromStorage = [{}]
 const loginInfoFromStorage = ''
-
+const allUsersInfoFromStorage = [{}]
 if (typeof window !== 'undefined') {
   // Perform localStorage action
   cartItemsFromStorage = localStorage.getItem('cartItems')
@@ -96,7 +101,13 @@ if (typeof window !== 'undefined') {
     ? JSON.parse(localStorage.getItem('isUserLogged'))
     : false
 }
-
+//allUsersInfo
+if (typeof window !== 'undefined') {
+  // Perform localStorage action
+  allUsersInfoFromStorage = localStorage.getItem('allUsersInfo')
+    ? JSON.parse(localStorage.getItem('allUsersInfo'))
+    : []
+}
 if (typeof window !== 'undefined') {
   // Perform localStorage action
   userInfoFromStorage = localStorage.getItem('userInfo')
@@ -108,7 +119,11 @@ const initialState = {
   cart: { cartItems: cartItemsFromStorage },
   shouldShowLoginForm: false,
   shouldShowSignupForm: false,
-  userLogin: { userInfo: userInfoFromStorage },
+  userLogin: {
+    loading: false,
+    userInfo: userInfoFromStorage,
+    isAdmin: false
+  },
   userLogged: loginInfoFromStorage,
   currentProduct: currentProductFromStorage,
   orderCreate: orderItemsFromStorage,
@@ -132,6 +147,19 @@ const initialState = {
   productImageAltError: false,
   productPickupTimeError: false,
   productSizeError: false,
+  allUsers: {
+    loading: true,
+    users: allUsersInfoFromStorage,
+    error: {}
+  },
+  userDelete: {
+    loading: false,
+    success: false
+  },
+  productDelete: {
+    loading: false,
+    success: false
+  }
 }
 
 const middleware = [thunk]

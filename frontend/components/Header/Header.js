@@ -18,11 +18,6 @@ const user = {
     'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -33,7 +28,7 @@ const Header = () => {
   const cart = useSelector(state => state.cart);
   const userLogged = useSelector(state => state.userLogged);
   const {cartItems} = cart
-  var { userInfo, isUserloggedIn } = userLogin
+  var { userInfo } = userLogin
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -85,7 +80,7 @@ const Header = () => {
                     </Link>
                   </div>
                 </div>
-                <div className="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
+                <div className=" flex-1 md:px-8 lg:px-0 xl:col-span-3">
                   <div className="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
                     <div className="w-full">
                       <label htmlFor="search" className="sr-only">
@@ -119,7 +114,7 @@ const Header = () => {
                     )}
                   </Popover.Button>
                 </div>
-                <div className="hidden lg:flex lg:items-center lg:justify-end xl:col-span-4">
+                <div className="hidden lg:flex lg:items-center lg:justify-end xl:col-span-5">
                   
                   {!userLogged && <Login />}
                   {!userLogged && <Signup />}
@@ -220,7 +215,16 @@ const Header = () => {
                         </div>                        
                       </Menu.Items>                      
                     </Transition>
-                  </Menu> }                 
+                  </Menu>}
+                  
+                  {(userLogged ? userInfo.isAdmin : false) && <Link href="/admin">
+                    <a
+                      
+                      className="ml-6 inline-flex items-center px-4 py-2 border-2 font-sans tracking-wider text-sm font-medium rounded-md shadow-sm text-white bg-headerComplimentary hover:bg-white hover:text-header focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-header"
+                    >
+                      Admin Screen
+                    </a>
+                  </Link>}
                 </div>
               </div>
             </div>

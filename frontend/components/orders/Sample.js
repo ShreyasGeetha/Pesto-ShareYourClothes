@@ -42,7 +42,7 @@ const Sample = () => {
         </div>
 
       <div className="mt-6 -mb-6 flow-root border-t border-gray-200 divide-y divide-gray-200">
-        {!loading &&          
+        {!loading && !(error) &&         
             orders.map(value => (
             value.orderItems.map(order => (
               <div key={order._id} className="py-6 sm:flex">

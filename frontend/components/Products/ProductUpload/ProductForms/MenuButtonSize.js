@@ -2,19 +2,9 @@ import { Fragment, useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { Size } from '../Filters'
+import { useDispatch, useSelector } from 'react-redux'
+import { setProductSize } from '../../../../redux/actions/productUploadActions'
 
-const people = [
-  { id: 1, name: 'Wade Cooper' },
-  { id: 2, name: 'Arlene Mccoy' },
-  { id: 3, name: 'Devon Webb' },
-  { id: 4, name: 'Tom Cook' },
-  { id: 5, name: 'Tanya Fox' },
-  { id: 6, name: 'Hellen Schmidt' },
-  { id: 7, name: 'Caroline Schultz' },
-  { id: 8, name: 'Mason Heaney' },
-  { id: 9, name: 'Claudie Smitham' },
-  { id: 10, name: 'Emil Schaefer' },
-]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -23,8 +13,17 @@ const MenuButtonSize = () => {
   
   const [selected, setSelected] = useState('Select Size')
 
+  const dispatch = useDispatch();
+  const productSize = useSelector(state => state.productSize)
+
   useEffect(() => {
-    console.log('Menu Selected', selected)
+
+    const init = async () => {
+      if (productSize.productSize !== '' || productSize !== '') {
+         await dispatch(setProductSize(selected))
+     }
+    }
+    init()
   },[selected])
 
   return (

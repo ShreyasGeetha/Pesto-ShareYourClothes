@@ -24,6 +24,11 @@ module.exports = {
         destination: 'http://127.0.0.1:5000/api/users', // Matched parameters can be used in the destination      
       },
       {
+        ///api/users/:id
+        source: '/api/users/deleteUser',
+        destination: 'http://127.0.0.1:5000/api/users/deleteUser', // Matched parameters can be used in the destination      
+      },
+      {
         ///api/users
         source: '/api/users/profile',
         destination: 'http://127.0.0.1:5000/api/users/profile', // Matched parameters can be used in the destination      

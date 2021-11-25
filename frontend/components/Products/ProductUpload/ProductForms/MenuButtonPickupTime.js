@@ -2,6 +2,8 @@ import { Fragment, useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { PickupTime } from '../Filters'
+import { useDispatch, useSelector } from 'react-redux'
+import { setProductPickupTime } from '../../../../redux/actions/productUploadActions'
 
 
 function classNames(...classes) {
@@ -11,9 +13,19 @@ const MenuButtonPickupTime = () => {
   
   const [selected, setSelected] = useState('Select Pickup Time')
 
+ const dispatch = useDispatch();
+  const productPickupTime = useSelector(state => state.productPickupTime)
+
   useEffect(() => {
-    console.log('Menu Selected', selected)
+
+    const init = async () => {
+      if (productPickupTime.productPickupTime !== '' || productPickupTime !== '') {
+         await dispatch(setProductPickupTime(selected))
+     }
+    }
+    init()
   },[selected])
+
 
   return (
     <>

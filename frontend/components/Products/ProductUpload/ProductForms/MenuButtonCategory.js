@@ -2,16 +2,28 @@ import { Fragment, useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { Category } from '../Filters'
+import { useDispatch, useSelector } from 'react-redux'
+import {  setProductCategory } from '../../../../redux/actions/productUploadActions'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 const MenuButtonCategory = () => {
   
+  const dispatch = useDispatch();
+
   const [selected, setSelected] = useState('Choose Category')
+  const productCategory = useSelector(state => state.productCategory)
 
   useEffect(() => {
-    console.log('Menu Selected', selected)
+
+    const init = async () => {
+      if (productCategory.productCategory !== '' || productCategory !== '') {
+        console.log('the category option which you have chosen is:', selected)
+         await dispatch(setProductCategory(selected))
+     }
+    }
+    init()
   },[selected])
 
   return (

@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import EmailForm from "../../Forms/EmailForm/EmailForm";
+import CancelButton from "./ProductForms/CancelButton";
 import ProductBrand from "./ProductForms/ProductBrand";
 import ProductCategory from "./ProductForms/ProductCategory";
 import ProductColor from "./ProductForms/ProductColor";
@@ -11,6 +12,7 @@ import ProductName from "./ProductForms/ProductName";
 import ProductPhoto from "./ProductForms/ProductPhoto";
 import ProductPickupTime from "./ProductForms/ProductPickupTime";
 import ProductSize from "./ProductForms/ProductSize";
+import SaveButton from "./ProductForms/SaveButton";
 
 const ProductUploadScreen = () => {
 
@@ -61,18 +63,8 @@ const ProductUploadScreen = () => {
 
       <div className="pt-5">
         <div className="flex justify-end">
-          <button
-            type="button"
-            className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="ml-3 inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-gray-50 hover:bg-header  focus:ring-2 focus:ring-offset-2 hover:text-white focus:ring-header"
-          >
-            Save
-          </button>
+          <CancelButton />
+          <SaveButton />
         </div>
       </div>
     </form>

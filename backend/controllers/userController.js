@@ -42,7 +42,7 @@ const registerUser = asyncHandler( async (req, res) => {
     email,
     password
   })
-
+//s3setup - aws user name
   if (user) {
     res.status(201)
     res.json({
@@ -63,11 +63,13 @@ const registerUser = asyncHandler( async (req, res) => {
 // @route GET /api/users/profile
 // @access  private
 const getUserProfile = asyncHandler( async (req, res) => {
+  console.log('this function is being called', req)
   const user = await User.findById(req.user._id)
-  
 // const { email } = req.body;
 //   console.log('This is at Server', email, password)
 //   const user = await await User.findOne({ email })
+  // const user1 = await User.find()
+  // console.log('will it print all users?', user1)
   if (user) {
     res.json({
       _id: user._id,
@@ -86,7 +88,11 @@ const getUserProfile = asyncHandler( async (req, res) => {
 // @access  private
 const updateUserProfile = asyncHandler( async (req, res) => {
  
+  console.log('what does req.body has', req.body)
   const user = await User.findById(req.body.id)
+  console.log('fetch?', user)
+  // const user = await User.findOne({email: 'test3@example.com'})
+  // console.log('what does req.body has', user)
   if (user) {
     user.name = req.body.name || user.name
     user.email = req.body.email || user.email
@@ -95,6 +101,7 @@ const updateUserProfile = asyncHandler( async (req, res) => {
     }
     
     const UpdatedUser = await user.save();
+  console.log('fetch?', user)
 
     res.json({
       _id: UpdatedUser._id,
@@ -109,4 +116,40 @@ const updateUserProfile = asyncHandler( async (req, res) => {
   }
 })
 
-export {authUser, getUserProfile, registerUser, updateUserProfile}
+// @desc Get All Users
+// @route GET /api/users
+// @access  private
+const getUsers = asyncHandler( async (req, res) => {
+
+  const users = await User.find()
+  if (users) {
+    res.json({
+      users     
+    })
+  } else {
+    res.status(404)
+    throw new Error('No Users found')
+  }
+})
+
+// @desc Delete user
+// @route DELETE /api/users/:id
+// @access  private/admin
+const deleteUserById = asyncHandler( async (req, res) => {
+
+  const user = await User.findById(req.body.userId)
+  if (user) {
+    await user.remove()
+     const users = await User.find()
+    res.json({
+      users,
+      message: 'User Removed'
+    })
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+
+})
+
+export {authUser, getUserProfile, registerUser, updateUserProfile, getUsers, deleteUserById}

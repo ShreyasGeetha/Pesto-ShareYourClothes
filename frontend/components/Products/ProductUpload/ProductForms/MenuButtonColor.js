@@ -2,6 +2,8 @@ import { Fragment, useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { Color } from '../Filters'
+import { useDispatch, useSelector } from 'react-redux'
+import { setProductColor } from '../../../../redux/actions/productUploadActions'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -10,8 +12,17 @@ const MenuButtonColor = () => {
   
   const [selected, setSelected] = useState('Select Color')
 
+  const dispatch = useDispatch();
+  const productColor = useSelector(state => state.productColor)
+
   useEffect(() => {
-    console.log('Menu Selected', selected)
+
+    const init = async () => {
+      if (productColor.productColor !== '' || productColor !== '') {
+         await dispatch(setProductColor(selected))
+     }
+    }
+    init()
   },[selected])
 
   return (

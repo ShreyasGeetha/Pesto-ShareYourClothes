@@ -8,16 +8,16 @@ const SignUpButton = () => {
   const password = useSelector(state => state.password);
   const userName = useSelector(state => state.userName);
   const userLogin = useSelector(state => state.userLogin)
-  const shouldShowLoginForm = useSelector(state => state.shouldShowLoginForm);
+  const shouldShowSignupForm = useSelector(state => state.shouldShowSignupForm);
 
   const dispatch = useDispatch();
 
   const submitHandler = async (e) => {
     e.preventDefault()
     //Dispatch Login
-    await dispatch(register(userName, email, password))
+    await dispatch(register(userName, email, password, true))
     if (userLogin) {
-      await dispatch(exitSignupForm(!shouldShowLoginForm)) 
+      await dispatch(exitSignupForm(!shouldShowSignupForm)) 
     }
   }
 

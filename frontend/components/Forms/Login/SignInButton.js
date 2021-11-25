@@ -23,7 +23,7 @@ const SignInButton = () => {
             console.log('The error message is', userLogin.error)
             await dispatch(invalidUserNamePasswordError())
           } else {
-            await dispatch(exitLoginForm(!shouldShowLoginForm)) 
+            await dispatch(exitLoginForm(!shouldShowLoginForm))            
           }                    
         }  
       } else {

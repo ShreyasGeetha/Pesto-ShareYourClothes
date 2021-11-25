@@ -19,7 +19,13 @@ import {
   CLEAR_USER_EMAIL,
   CLEAR_USER_NAME,
   EMAIL,
-  CLEAR_USER_PASSWORD
+  CLEAR_USER_PASSWORD,
+  GET_ALL_USERS_FAIL,
+  GET_ALL_USERS_SUCCESS,
+  GET_ALL_USERS_REQUEST,
+  USER_DELETE_REQUEST,
+  USER_DELETE_SUCCESS,
+  USER_DELETE_FAIL
 } from "../../types/userTypes"
 
 export const userLoginReducer = (state = {}, action) => {
@@ -27,8 +33,9 @@ export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return {loading: true}
-    case USER_LOGIN_SUCCESS:      
-      return {loading: false, userInfo: action.payload}
+    case USER_LOGIN_SUCCESS:
+      const arr = action.payload
+      return {loading: false, userInfo: action.payload, isAdmin:arr.isAdmin}
     case USER_LOGIN_FAIL:
       return { loading: false, error: action.payload }
     
@@ -75,7 +82,43 @@ export const userDetailsReducer = (state = {user: {}}, action) => {
       return {loading: false, user: action.payload}
     case USER_DETAILS_FAIL:
       return { loading: false, error: action.payload }
+    case GET_ALL_USERS_REQUEST:
+      return {...state, loading: true}
+    case GET_ALL_USERS_SUCCESS:
+      return {loading: false, allUsers: action.payload}
+    case GET_ALL_USERS_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const getAllDetailsReducer = (state = {}, action) => {
  
+  switch (action.type) {
+    
+    case GET_ALL_USERS_REQUEST:
+      return {...state, loading: true}
+    case GET_ALL_USERS_SUCCESS:
+      return {loading: false, allUsers: action.payload}
+    case GET_ALL_USERS_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const userDeleteReducer = (state = {}, action) => {
+ 
+  switch (action.type) {
+    
+    case USER_DELETE_REQUEST:
+      return {...state, loading: true}
+    case USER_DELETE_SUCCESS:
+      
+      return {loading: false, success: true}
+    case USER_DELETE_FAIL:
+      return { loading: false, error: action.payload }
     default:
       return state
   }

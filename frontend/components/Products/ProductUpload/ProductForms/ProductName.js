@@ -1,13 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
-
+import { setProductName } from '../../../../redux/actions/productUploadActions'
 
 const ProductName = () => {
 
   const dispatch = useDispatch();
   const productNameError = useSelector(state => state.productNameError)
 
+ 
 
-  const setProductName = async (e) => {
+  const setProdName = async (e) => {
     
     await dispatch(setProductName(e.target.value))
   }
@@ -29,7 +30,7 @@ const ProductName = () => {
             name="ProductName"
             type="ProductName"
             autoComplete=""
-            onChange={setProductName}
+            onChange={setProdName}
             placeholder='Enter your ProductName'
             required
             className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 tracking-wider  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

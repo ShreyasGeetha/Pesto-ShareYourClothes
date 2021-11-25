@@ -15,13 +15,28 @@ import EmailForm from '../Forms/EmailForm/EmailForm'
 import PasswordForm from '../Forms/PasswordForm/PasswordForm'
 import SaveCancelButton from './SaveCancelButton'
 import UserImageLg from './UserImageLg'
+import { useDispatch } from 'react-redux'
+import { getUserDetails } from '../../redux/actions/userActions'
+import UserNameFormProfile from '../Forms/UserNameForm/UserNameFormProfile'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 
+
 const UserProfile = () => {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const getData = async () => {
+      const res = await dispatch(getUserDetails('profile'))
+      console.log('status of res', res)
+    }
+    getData();
+  },[])
+
   return (
     <div>
       <Disclosure as="div" className="relative bg-sky-700 pb-32 overflow-hidden">

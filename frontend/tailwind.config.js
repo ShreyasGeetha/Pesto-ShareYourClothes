@@ -6,7 +6,7 @@ module.exports = {
     extend: {
       colors: {
         header: '#009900',
-        headerComplimentary: '#1FBF1F',
+        headerComplimentary: '#E02D87s',
         primary: "#ff4800",
         login: '#fee500',
         focus: "#2B802B",

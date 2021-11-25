@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { setProductBrand } from "../../../../redux/actions/productUploadActions";
 
 
 const ProductBrand = () => {
@@ -7,7 +8,7 @@ const ProductBrand = () => {
   const productBrandError = useSelector(state => state.productBrandError)
 
 
-  const setProductBrand = async (e) => {
+  const setProdBrand = async (e) => {
     
     await dispatch(setProductBrand(e.target.value))
   }
@@ -29,7 +30,7 @@ const ProductBrand = () => {
             name="ProductBrand"
             type="ProductBrand"
             autoComplete=""
-            onChange={setProductBrand}
+            onChange={setProdBrand}
             placeholder='Enter your ProductBrand'
             required
             className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

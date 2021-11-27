@@ -3,7 +3,7 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { PickupTime } from '../Filters'
 import { useDispatch, useSelector } from 'react-redux'
-import { setProductPickupTime } from '../../../../redux/actions/productUploadActions'
+import { setProductPickupTime, setProductPickupTimeValidation } from '../../../../redux/actions/productUploadActions'
 
 
 function classNames(...classes) {
@@ -19,8 +19,11 @@ const MenuButtonPickupTime = () => {
   useEffect(() => {
 
     const init = async () => {
-      if (productPickupTime.productPickupTime !== '' || productPickupTime !== '') {
+      if (selected !== 'Select Pickup Time') {
          await dispatch(setProductPickupTime(selected))
+      }
+      else {
+        await dispatch(setProductPickupTimeValidation(false))
      }
     }
     init()

@@ -11,6 +11,7 @@
 <a href="https://ibb.co/T04QB1s"><img src="https://i.ibb.co/qgNHMCv/White-Shirt.jpg" alt="White-Shirt" border="0"></a>
  */
 
+import axios from 'axios';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
@@ -24,13 +25,15 @@ const ProductsPage = () => {
   const dispatch = useDispatch()
   const productList = useSelector((state) => state.productList)
   const { loading, error, products } = productList
-
+//https://hope-product-profile-images.s3.ap-southeast-1.amazonaws.com/69e3b726f849282112eefff743f08e9e?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXG637FINWILBG5OP%2F20211125%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20211125T211211Z&X-Amz-Expires=60&X-Amz-Signature=acd9830a5c946e2aaa9e860a5edf22d649f4fcdad350d04235064adf563175ae&X-Amz-SignedHeaders=host
   useEffect(() => {
     const getProducts = async () => {
        
       await dispatch(listProducts());
+      
     }
-    getProducts();  
+    getProducts();
+    
   },[dispatch])
   
 

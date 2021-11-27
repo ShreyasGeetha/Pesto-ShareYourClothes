@@ -1,12 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setProductDropLocation } from "../../../../redux/actions/productUploadActions";
+import { setProductDropLocation, setProductDropLocationValidation } from "../../../../redux/actions/productUploadActions";
 
 const ProductDropLocation = () => {
   const productDropLocationError = useSelector(state => state.productDropLocationError)
   const dispatch = useDispatch()
 
   const setProdDropLocation = async (e) => {
-    await dispatch(setProductDropLocation(e.target.value))
+    if (e.target.value === "") {
+      await dispatch(setProductDropLocationValidation(false))
+    } else {      
+      await dispatch(setProductDropLocation(e.target.value))
+    }   
+    
   }
 
 

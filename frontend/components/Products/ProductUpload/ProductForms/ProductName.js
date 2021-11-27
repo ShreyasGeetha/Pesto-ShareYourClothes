@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setProductName } from '../../../../redux/actions/productUploadActions'
+import { setProductForValidation, setProductName, setProductNameValidation } from '../../../../redux/actions/productUploadActions'
 
 const ProductName = () => {
 
@@ -9,8 +9,12 @@ const ProductName = () => {
  
 
   const setProdName = async (e) => {
-    
-    await dispatch(setProductName(e.target.value))
+    console.log(e.target.value)
+    if (e.target.value === "") {
+      await dispatch(setProductNameValidation(false))
+    } else {      
+      await dispatch(setProductName(e.target.value))
+    }    
   }
   
   return (

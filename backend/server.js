@@ -23,9 +23,10 @@ app.use('/api/products/',productRoutes)
 app.use('/api/users/',userRoutes)
 app.use('/api/orders/',orderRoutes)
 
-app.get('s3Url', (req, res) => {
-  
-})
+// app.get('/s3Url', async (req, res) => {
+//   const url = await generateUploadUrl()
+//   res.send({url})
+// })
 
 app.use(notFound)
 

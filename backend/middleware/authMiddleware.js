@@ -8,7 +8,7 @@ import User from '../models/userModel.js'
 const protect = asyncHandler( async (req, res, next) => {
 
   let token
-  console.log('choose',req.headers)
+  //console.log('what do we get in headers ',req.headers)
   // token will be passed in headers
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     try {
@@ -18,7 +18,7 @@ const protect = asyncHandler( async (req, res, next) => {
       console.log('is Authentication Successful', req.user)
       next()
     } catch (error) {
-      console.error(error)
+      //console.error(error)
       res.status(401)
       throw new Error('Not Authorized, token failed')
     }

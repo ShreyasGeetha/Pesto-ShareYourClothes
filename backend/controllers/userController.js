@@ -1,6 +1,8 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js'
-import  generateToken  from '../utils/generateToken.js'
+import generateToken from '../utils/generateToken.js'
+import multer from 'multer'
+import { uploadFileToS3 } from '../s3.js';
 
 // @desc Auth user and get token
 // @route POST /api/users/login
@@ -16,6 +18,7 @@ const authUser = asyncHandler( async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      image: user.image,
       token: generateToken(user._id)
     })
   } else {
@@ -63,7 +66,7 @@ const registerUser = asyncHandler( async (req, res) => {
 // @route GET /api/users/profile
 // @access  private
 const getUserProfile = asyncHandler( async (req, res) => {
-  console.log('this function is being called', req)
+  //console.log('this function is being called', req)
   const user = await User.findById(req.user._id)
 // const { email } = req.body;
 //   console.log('This is at Server', email, password)
@@ -87,12 +90,8 @@ const getUserProfile = asyncHandler( async (req, res) => {
 // @route PUT /api/users/profile
 // @access  private
 const updateUserProfile = asyncHandler( async (req, res) => {
- 
-  console.log('what does req.body has', req.body)
   const user = await User.findById(req.body.id)
-  console.log('fetch?', user)
-  // const user = await User.findOne({email: 'test3@example.com'})
-  // console.log('what does req.body has', user)
+  
   if (user) {
     user.name = req.body.name || user.name
     user.email = req.body.email || user.email
@@ -100,8 +99,9 @@ const updateUserProfile = asyncHandler( async (req, res) => {
       user.password = req.body.password   
     }
     
+
     const UpdatedUser = await user.save();
-  console.log('fetch?', user)
+    console.log('fetch?', user)
 
     res.json({
       _id: UpdatedUser._id,
@@ -114,6 +114,59 @@ const updateUserProfile = asyncHandler( async (req, res) => {
     res.status(404)
     throw new Error('User not found')
   }
+})
+
+// @desc Update User Profile Image
+// @route PUT /api/users/profile/images
+// @access  private
+const updateUserProfileImage = asyncHandler(async (req, res) => {
+  
+  console.log('Header insider the profile Image update', req)
+  
+
+  const user = await User.findById(req.user._id)
+  if (user) {
+    console.log('User info able to fetch')
+    const result = await uploadFileToS3(req.file)
+    console.log('S3 info able to fetch1', result)
+
+    if (result) {
+      user.image = result.Location
+      
+      const UpdatedUser = await user.save();
+      const updatedUserWithToken = {
+      _id: UpdatedUser._id,
+      name: UpdatedUser.name,
+      email: UpdatedUser.email,
+      isAdmin: UpdatedUser.isAdmin,
+      image: UpdatedUser.image,
+      token: generateToken(UpdatedUser._id)
+      }
+      console.log('sample', updatedUserWithToken)
+      if (UpdatedUser) {
+        console.log('S3 info able to fetch', UpdatedUser)
+        res.send(updatedUserWithToken)
+    //     res.json({
+    //       _id: UpdatedUser._id,
+    //       name: UpdatedUser.name,
+    //       email: UpdatedUser.email,
+    //       image: updateUser.image,
+    //       isAdmin: UpdatedUser.isAdmin,
+    //       token: generateToken(UpdatedUser._id)
+    // })
+      } else {
+        res.status(500)
+        throw new Error('Failed at saving to database')
+      }
+    } else {
+      res.status(500)
+      throw new Error('Unable to upload image')
+    }
+    
+  } else {
+    res.status(404)
+    throw new Error('Unable to find User')
+  }  
 })
 
 // @desc Get All Users
@@ -152,4 +205,4 @@ const deleteUserById = asyncHandler( async (req, res) => {
 
 })
 
-export {authUser, getUserProfile, registerUser, updateUserProfile, getUsers, deleteUserById}
+export {authUser, getUserProfile, registerUser, updateUserProfile, updateUserProfileImage, getUsers, deleteUserById}

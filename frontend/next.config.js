@@ -14,6 +14,10 @@ module.exports = {
         destination: 'http://127.0.0.1:5000/api/products/:id', // Matched parameters can be used in the destination      
       },
       {
+        source: '/api/products/images',
+        destination: 'http://127.0.0.1:5000/api/products/images', // Matched parameters can be used in the destination
+      },
+      {
         ///api/users/login
         source: '/api/users/login',
         destination: 'http://127.0.0.1:5000/api/users/login', // Matched parameters can be used in the destination      
@@ -29,9 +33,14 @@ module.exports = {
         destination: 'http://127.0.0.1:5000/api/users/deleteUser', // Matched parameters can be used in the destination      
       },
       {
-        ///api/users
+        ///api/users/profile
         source: '/api/users/profile',
         destination: 'http://127.0.0.1:5000/api/users/profile', // Matched parameters can be used in the destination      
+      },
+      {
+        ///api/users/profile/images
+        source: '/api/users/profile/images',
+        destination: 'http://127.0.0.1:5000/api/users/profile/images', // Matched parameters can be used in the destination      
       },
       {
         ///api/orders
@@ -42,6 +51,11 @@ module.exports = {
         ///api/orders/myorders
         source: '/api/orders/myorders',
         destination: 'http://127.0.0.1:5000/api/orders/myorders', // Matched parameters can be used in the destination      
+      },
+      {
+        ///s3Url
+        source: '/s3Url',
+        destination: 'http://127.0.0.1:5000/s3Url', // Matched parameters can be used in the destination      
       }
     ]
   },

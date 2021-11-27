@@ -3,7 +3,7 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { Size } from '../Filters'
 import { useDispatch, useSelector } from 'react-redux'
-import { setProductSize } from '../../../../redux/actions/productUploadActions'
+import { setProductSize, setProductSizeValidation } from '../../../../redux/actions/productUploadActions'
 
 
 function classNames(...classes) {
@@ -19,8 +19,47 @@ const MenuButtonSize = () => {
   useEffect(() => {
 
     const init = async () => {
-      if (productSize.productSize !== '' || productSize !== '') {
-         await dispatch(setProductSize(selected))
+      if (selected !== "Select Size") {
+
+        var selectSize = [];
+        var inStock = false;
+        const Size = [
+              'XS',
+              'S',
+              'M',
+              'L',
+              'XL',
+              'XXL (2XL)',
+              'XXXL (3XL)',
+              'XXXL (4XL)',
+              'VXL (5XL)',
+              'Between 1 to 2 Years',
+              'Between 2 to 3 Years',
+              'Between 3 to 4 Years',
+              'Between 4 to 5 Years',
+              'Between 5 to 6 Years',
+              'Between 6 to 7 Years',
+              'Between 7 to 8 Years',
+              'Between 8 to 9 Years',
+              'Between 9 to 10 Years',
+            ];
+        for (var i = 0; i < Size.length; i++) {
+          if (Size[i] === selected) {
+              inStock = true
+            }
+            selectSize.push({
+                name: Size[i],
+                inStock: inStock,
+                isSelected: inStock
+            });
+          inStock = false
+        }
+        console.log('1',selectSize)
+         await dispatch(setProductSize(selectSize))
+      }
+      else {
+        console.log('0', productSize.value)
+        await dispatch(setProductSizeValidation(false))
      }
     }
     init()

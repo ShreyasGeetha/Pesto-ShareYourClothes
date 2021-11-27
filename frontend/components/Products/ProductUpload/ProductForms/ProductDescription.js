@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setProductDescription } from "../../../../redux/actions/productUploadActions";
+import { setProductDescription, setProductDescriptionValidation } from "../../../../redux/actions/productUploadActions";
 
 const ProductDescription = () => {
 
@@ -8,7 +8,12 @@ const ProductDescription = () => {
 
   const setProdDescription = async (e) => {
     console.log('description being typed is ', e.target.value)
-    await dispatch(setProductDescription(e.target.value))
+    if (e.target.value === "") {
+      await dispatch(setProductDescriptionValidation(false))
+    } else {      
+      await dispatch(setProductDescription(e.target.value))
+    }  
+    
   }
 
   return (

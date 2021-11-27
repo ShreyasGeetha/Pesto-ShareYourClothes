@@ -2,14 +2,14 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { productDeleteReducer, productListReducer } from './reducers/products/productReducer'
+import { productCreateReducer, productDeleteReducer, productListReducer } from './reducers/products/productReducer'
 import { currentProductDetailsReducer, productDetailsReducer } from './reducers/products/productDetailsReducer'
 import {cartReducer } from './reducers/cart/cartReducer'
 import { showLoginFormReducer, showSignupFormReducer } from './reducers/cart/showLoginFormReducer';
 import {
   userRegisterReducer, setEmailReducer, setPasswordReducer,
   userLoginReducer, setUserNameReducer, userDetailsReducer,
-  user_isLoggedReducer, userUpdateProfileReducer, setReducer, getAllDetailsReducer, userDeleteReducer
+  user_isLoggedReducer, userUpdateProfileReducer, setReducer, getAllDetailsReducer, userDeleteReducer, setUserImageReducer, userImageReducer
 } from './reducers/user/userReducers'
 import {
   createOrderReducer, orderListMyReducer
@@ -19,8 +19,10 @@ import {
   passwordErrorReducer, usernameErrorReducer
 } from './reducers/Forms/FormReducer'
 import {
+  createProductImageReducer,
   productBrandErrorReducer, productCategoryErrorReducer, productColorErrorReducer, productDescriptionErrorReducer, productDropLocationErrorReducer, productImageAltErrorReducer, productImageErrorReducer, productNameErrorReducer, productPickupTimeErrorReducer, productSizeErrorReducer, setProductBrandReducer, setProductCategoryReducer, setProductColorReducer, setProductDescriptionReducer, setProductDropLocationReducer, setProductImageAltReducer, setProductImageReducer, setProductNameReducer, setProductPickupTimeReducer, setProductSizeReducer
 } from './reducers/products/productUploadReducer';
+import { s3UploadImageReducer } from './reducers/S3/S3';
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -34,8 +36,11 @@ const reducer = combineReducers({
   allUsers: getAllDetailsReducer,
   userDelete: userDeleteReducer,
   productDelete: productDeleteReducer,
+  productCreate: productCreateReducer,
   email: setReducer,
   password: setPasswordReducer,
+  userImage: setUserImageReducer,
+  s3Image: s3UploadImageReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   currentProduct: currentProductDetailsReducer,
@@ -46,6 +51,7 @@ const reducer = combineReducers({
   invalidUserNamePassword: invalidUserNamePasswordErrorReducer,
   orderCreate: createOrderReducer,
   orderListMy: orderListMyReducer,
+  createProductImage: createProductImageReducer,
   productName: setProductNameReducer,
   productBrand: setProductBrandReducer,
   productColor: setProductColorReducer,
@@ -74,6 +80,8 @@ const currentProductFromStorage = [{}]
 const userInfoFromStorage = [{}]
 const loginInfoFromStorage = ''
 const allUsersInfoFromStorage = [{}]
+const userImageInfoFromStorage = [{}]
+
 if (typeof window !== 'undefined') {
   // Perform localStorage action
   cartItemsFromStorage = localStorage.getItem('cartItems')
@@ -113,6 +121,13 @@ if (typeof window !== 'undefined') {
   userInfoFromStorage = localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
     : []
+}//
+
+if (typeof window !== 'undefined') {
+  // Perform localStorage action
+  userImageInfoFromStorage = localStorage.getItem('userImageInfo')
+    ? JSON.parse(localStorage.getItem('userImageInfo'))
+    : []
 }
 
 const initialState = {
@@ -136,6 +151,11 @@ const initialState = {
   passwordError: false,
   emailError: false,
   usernameError: false,
+  userImage: {
+    loading: false,
+    imageUrl: '',
+    success: false
+  },
   invalidUserNamePassword: false,
   productNameError: false,
   productCategoryError: false,
@@ -158,6 +178,21 @@ const initialState = {
   },
   productDelete: {
     loading: false,
+    success: false
+  },
+  productColor: {
+    success: false
+  },
+  productImage: {
+    success: false
+  },
+  productName: {
+    success: false
+  },
+  productBrand: {
+    success: false
+  },
+  productImageAlt: {
     success: false
   }
 }

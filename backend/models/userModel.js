@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema({
   image: {
     type: String,
     required: true,
-    deafult: ''
+    default: 'https://hope-product-profile-images.s3.ap-southeast-1.amazonaws.com/4d31c9cc8e43fcb616f2077af772ef63'
   },
   
   isAdmin: {

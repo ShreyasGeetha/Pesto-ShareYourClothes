@@ -1,3 +1,5 @@
+import axios from "axios"
+import { PRODUCT_CREATE_IMAGE_FAIL, PRODUCT_CREATE_IMAGE_REQUEST, PRODUCT_CREATE_IMAGE_SUCCESS } from "../types/productTypes"
 import {
   SET_PRODUCT_NAME, SET_PRODUCT_BRAND,
   SET_PRODUCT_CATEGORY, SET_PRODUCT_COLOR,
@@ -8,8 +10,99 @@ import {
   DISABLE_ERROR_PRODUCT_CATEGORY, DISABLE_ERROR_PRODUCT_COLOR,
   DISABLE_ERROR_PRODUCT_DESCRIPTION, DISABLE_ERROR_PRODUCT_DROPLOCATION,
   DISABLE_ERROR_PRODUCT_IMAGE, DISABLE_ERROR_PRODUCT_IMAGE_ALT,
-  DISABLE_ERROR_PRODUCT_PICKUP_TIME, DISABLE_ERROR_PRODUCT_SIZE, ERROR_PRODUCT_BRAND, ERROR_PRODUCT_CATEGORY, ERROR_PRODUCT_COLOR, ERROR_PRODUCT_DESCRIPTION, ERROR_PRODUCT_DROPLOCATION, ERROR_PRODUCT_IMAGE, ERROR_PRODUCT_IMAGE_ALT, ERROR_PRODUCT_PICKUP_TIME, ERROR_PRODUCT_SIZE,
+  DISABLE_ERROR_PRODUCT_PICKUP_TIME, DISABLE_ERROR_PRODUCT_SIZE, ERROR_PRODUCT_BRAND, ERROR_PRODUCT_CATEGORY, ERROR_PRODUCT_COLOR, ERROR_PRODUCT_DESCRIPTION, ERROR_PRODUCT_DROPLOCATION, ERROR_PRODUCT_IMAGE, ERROR_PRODUCT_IMAGE_ALT, ERROR_PRODUCT_PICKUP_TIME, ERROR_PRODUCT_SIZE, SET_PRODUCT_VALIDATOR, SET_PRODUCT_NAME_VALIDATOR, SET_PRODUCT_BRAND_VALIDATOR, SET_PRODUCT_CATEGORYE_VALIDATOR, SET_PRODUCT_COLOR_VALIDATOR, SET_PRODUCT_DESCRIPTION_VALIDATOR, SET_PRODUCT_DROPLOCATION_VALIDATOR, SET_PRODUCT_PRODUCT_IMAGE_VALIDATOR, SET_PRODUCT_PICKUP_TIME_VALIDATOR, SET_PRODUCT_SIZE_VALIDATOR, SET_PRODUCT_IMAGE_ALT_VALIDATOR,
 } from "../types/productUploadTypes"
+
+
+export const productUpload = (user) => async (dispatch,getState) =>{
+  try {
+    console.log(user)
+    dispatch({
+      type: PRODUCT_UPLOAD_REQUEST
+    })
+
+   const { userLogin:{userInfo} } = getState()
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`
+      }      
+    }
+    console.log(`token ${userInfo.token}, ${user}`)
+   console.log('length', user.length)
+    const {data} = await axios.put(
+      `/api/users/profile`, user,
+      config)
+    
+     dispatch({
+      type: PRODUCT_UPLOAD_REQUEST,
+      payload: data
+     })
+    
+  } catch (error) {
+    console.log('error', error.response)
+    dispatch({
+      type: PRODUCT_UPLOAD_REQUEST,
+      payload: error.response && error.response.data.message
+        ? error.response.data.message
+        : error.response
+    })
+  }
+}
+
+export const getProductImageS3Link = (image) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PRODUCT_CREATE_IMAGE_REQUEST
+    })
+
+    console.log('product image upload actions in')
+    // set image in right format and send it to server through axios
+    const { userLogin: { userInfo } } = getState()
+    
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${userInfo.token}`
+      }      
+    }
+    console.log('Update user IMage client side bearer', config, image)
+      const picdata = new FormData()
+      picdata.append('name', 'dummyname')
+      picdata.append('file', image)
+    
+      const {data} = await axios.post(
+        '/api/products/images', picdata,
+        config)
+    console.log('response object', data.Location)
+    
+    dispatch({
+      type: PRODUCT_CREATE_IMAGE_SUCCESS,
+      payload: data.Location
+    })
+    
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_CREATE_IMAGE_FAIL,
+      payload: error
+    })
+  }
+}
+
+/**
+ * Set Product Form Validator
+ */
+export const setProductNameValidation = (isEmpty) => (dispatch) => {
+  try {
+    dispatch({
+      type: SET_PRODUCT_NAME_VALIDATOR,
+      payload: isEmpty
+    })
+    
+  } catch (error) {
+    
+  }
+}
 
 /**
  * Set Product Name
@@ -20,6 +113,7 @@ export const setProductName = (productName) => (dispatch) => {
       type: SET_PRODUCT_NAME,
       payload: productName
     })
+   
     dispatch({
       type: DISABLE_ERROR_PRODUCT_NAME,
       payload: false
@@ -30,6 +124,20 @@ export const setProductName = (productName) => (dispatch) => {
 }
 
 /**
+ * Set Product Brand Validator
+ */
+export const setProductBrandValidation = (isEmpty) => (dispatch) => {
+  try {
+    dispatch({
+      type: SET_PRODUCT_BRAND_VALIDATOR,
+      payload: isEmpty
+    })
+    
+  } catch (error) {
+    
+  }
+}
+/**
  * Set Product Brand
  */
 export const setProductBrand = (productBrand) => (dispatch) => {
@@ -39,10 +147,26 @@ export const setProductBrand = (productBrand) => (dispatch) => {
       type: SET_PRODUCT_BRAND,
       payload: productBrand
     })
+   
      dispatch({
       type: DISABLE_ERROR_PRODUCT_BRAND,
       payload: false
     }) 
+  } catch (error) {
+    
+  }
+}
+
+/**
+ * Set Product CATEGORY Validator
+ */
+export const setProductCategoryValidation = (isEmpty) => (dispatch) => {
+  try {
+    dispatch({
+      type: SET_PRODUCT_CATEGORYE_VALIDATOR,
+      payload: isEmpty
+    })
+    
   } catch (error) {
     
   }
@@ -62,6 +186,22 @@ export const setProductCategory = (productCategory) => (dispatch) => {
       type: DISABLE_ERROR_PRODUCT_CATEGORY,
       payload: false
     }) 
+  } catch (error) {
+    
+  }
+}
+
+
+/**
+ * Set Product Color Validator
+ */
+export const setProductColorValidation = (isEmpty) => (dispatch) => {
+  try {
+    dispatch({
+      type: SET_PRODUCT_COLOR_VALIDATOR,
+      payload: isEmpty
+    })
+    
   } catch (error) {
     
   }
@@ -87,6 +227,21 @@ export const setProductColor = (productColor) => (dispatch) => {
 }
 
 /**
+ * Set Product Description Validator
+ */
+export const setProductDescriptionValidation = (isEmpty) => (dispatch) => {
+  try {
+    dispatch({
+      type: SET_PRODUCT_DESCRIPTION_VALIDATOR,
+      payload: isEmpty
+    })
+    
+  } catch (error) {
+    
+  }
+}
+
+/**
  * Set Product Description
  */
 export const setProductDescription = (productDescription) => (dispatch) => {
@@ -100,6 +255,21 @@ export const setProductDescription = (productDescription) => (dispatch) => {
       type: DISABLE_ERROR_PRODUCT_DESCRIPTION,
       payload: false
     })
+  } catch (error) {
+    
+  }
+}
+
+/**
+ * Set Product Drop Location Validator
+ */
+export const setProductDropLocationValidation = (isEmpty) => (dispatch) => {
+  try {
+    dispatch({
+      type: SET_PRODUCT_DROPLOCATION_VALIDATOR,
+      payload: isEmpty
+    })
+    
   } catch (error) {
     
   }
@@ -125,6 +295,21 @@ export const setProductDropLocation = (productDropLocation) => (dispatch) => {
 }
 
 /**
+ * Set Product Image Validator
+ */
+export const setProductImageValidation = (isEmpty) => (dispatch) => {
+  try {
+    dispatch({
+      type: SET_PRODUCT_PRODUCT_IMAGE_VALIDATOR,
+      payload: isEmpty
+    })
+    
+  } catch (error) {
+    
+  }
+}
+
+/**
  * Set Product Image
  */
 export const setProductImage = (productImage) => (dispatch) => {
@@ -138,6 +323,21 @@ export const setProductImage = (productImage) => (dispatch) => {
       type: DISABLE_ERROR_PRODUCT_IMAGE,
       payload: false
     })
+  } catch (error) {
+    
+  }
+}
+
+/**
+ * Set Product Image Alt Validator
+ */
+export const setProductImageAltValidation = (isEmpty) => (dispatch) => {
+  try {
+    dispatch({
+      type: SET_PRODUCT_IMAGE_ALT_VALIDATOR,
+      payload: isEmpty
+    })
+    
   } catch (error) {
     
   }
@@ -166,6 +366,21 @@ export const setProductImageAlt = (productImageAlt) => (dispatch) => {
 }
 
 /**
+ * Set Product PickupTime Validator
+ */
+export const setProductPickupTimeValidation = (isEmpty) => (dispatch) => {
+  try {
+    dispatch({
+      type: SET_PRODUCT_PICKUP_TIME_VALIDATOR,
+      payload: isEmpty
+    })
+    
+  } catch (error) {
+    
+  }
+}
+
+/**
  * Set Product PickupTime
  */
 export const setProductPickupTime = (productPickupTime) => (dispatch) => {
@@ -182,7 +397,22 @@ export const setProductPickupTime = (productPickupTime) => (dispatch) => {
   } catch (error) {
     
   }
-} 
+}
+
+/**
+ * Set Product Size Validator
+ */
+export const setProductSizeValidation = (isEmpty) => (dispatch) => {
+  try {
+    dispatch({
+      type: SET_PRODUCT_SIZE_VALIDATOR,
+      payload: isEmpty
+    })
+    
+  } catch (error) {
+    
+  }
+}
 
 /**
  * Set Product Size

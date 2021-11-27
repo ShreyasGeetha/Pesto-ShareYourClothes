@@ -8,6 +8,7 @@ import ProductCategory from "./ProductForms/ProductCategory";
 import ProductColor from "./ProductForms/ProductColor";
 import ProductDescription from "./ProductForms/ProductDescription";
 import ProductDropLocation from "./ProductForms/ProductDropLocation";
+import ProductImageAlt from "./ProductForms/ProductImageAlt";
 import ProductName from "./ProductForms/ProductName";
 import ProductPhoto from "./ProductForms/ProductPhoto";
 import ProductPickupTime from "./ProductForms/ProductPickupTime";
@@ -56,7 +57,7 @@ const ProductUploadScreen = () => {
 
             
             <ProductPhoto />
-            
+            <ProductImageAlt />
           </div>
         </div>      
       </div>

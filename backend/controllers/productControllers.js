@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Product from '../models/productModel.js'
+import { uploadFileToS3 } from '../s3.js';
 
 // @desc Fetch all products
 // @route GET /api/products
@@ -9,6 +10,29 @@ const getProducts = asyncHandler( async (req, res) => {
   const products = await Product.find({}); //{} will get all the objects
   
   res.json(products)
+})
+
+// @desc Create Product
+// @route PUT /api/product
+// @access  private/admin
+const createProduct = asyncHandler( async (req, res) => {
+  console.log('Create Product is ready', req.body)
+  
+  const product = new Product(req.body)
+  console.log('the product object to be created is: ',product)
+  const createdProduct = await product.save()
+  console.log('the created product object is: ',createdProduct)
+  res.status(201)
+  res.json(createdProduct)
+
+})
+
+const uploadProductImageToS3 = asyncHandler(async (req, res) => {
+  console.log('S3 Product upload function ready', req)
+  
+  const result = await uploadFileToS3(req.file)
+  console.log('S3 info able to fetch1', result)
+  res.send(result)
 })
 
 // @desc Fetch single product
@@ -49,5 +73,7 @@ const deleteProductById = asyncHandler( async (req, res) => {
 export {
   getProducts,
   getProductById,
-  deleteProductById
+  deleteProductById,
+  createProduct,
+  uploadProductImageToS3
 }

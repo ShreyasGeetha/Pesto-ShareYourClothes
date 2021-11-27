@@ -11,14 +11,6 @@ import { clear400Errors } from '../../redux/actions/FormActions';
 import { listMyOrders } from '../../redux/actions/orderActions';
 
 
-const user = {
-  name: 'Chelsea Hagon',
-  email: 'chelseahagon@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
-
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -157,7 +149,7 @@ const Header = () => {
                     <div>
                       <Menu.Button className="bg-white rounded-full flex focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-gray-50">
                         <span className="sr-only">Open user menu</span>
-                        <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                        <img className="h-8 w-8 rounded-full" src={userInfo.image} alt="" />
                       </Menu.Button>
                     </div>
                     <Transition
@@ -242,7 +234,7 @@ const Header = () => {
                 
                   <div className="max-w-3xl  px-4 flex items-center sm:px-1">
                     <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                      <img className="h-10 w-10 rounded-full" src={userInfo.image} alt="" />
                     </div>
                     <div className="ml-3 mb-2">
                       <div className="text-base font-medium text-gray-50">{userInfo.name}</div>

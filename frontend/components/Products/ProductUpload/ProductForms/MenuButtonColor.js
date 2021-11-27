@@ -3,7 +3,7 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { Color } from '../Filters'
 import { useDispatch, useSelector } from 'react-redux'
-import { setProductColor } from '../../../../redux/actions/productUploadActions'
+import { setProductColor, setProductColorValidation } from '../../../../redux/actions/productUploadActions'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -18,8 +18,11 @@ const MenuButtonColor = () => {
   useEffect(() => {
 
     const init = async () => {
-      if (productColor.productColor !== '' || productColor !== '') {
+      if (selected !== 'Select Color') {
          await dispatch(setProductColor(selected))
+      }
+      else {
+        await dispatch(setProductColorValidation(false))
      }
     }
     init()

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setProductBrand } from "../../../../redux/actions/productUploadActions";
+import { setProductBrand, setProductBrandValidation } from "../../../../redux/actions/productUploadActions";
 
 
 const ProductBrand = () => {
@@ -10,7 +10,13 @@ const ProductBrand = () => {
 
   const setProdBrand = async (e) => {
     
-    await dispatch(setProductBrand(e.target.value))
+    if (e.target.value === "") {
+      await dispatch(setProductBrandValidation(false))
+    } else {      
+      await dispatch(setProductBrand(e.target.value))
+    }   
+    
+    
   }
   
   return (

@@ -1,4 +1,8 @@
+import {useEffect} from 'react'
+
 const SmallLoader = () => {
+  
+ 
   return (
     <div className="bg-white px-2 pt-1 pb-2 sm:px-6  sm:pt-2 lg:px-2 lg:py-2">
     <svg xmlns="" className="h-6 w-6 m-auto animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor">

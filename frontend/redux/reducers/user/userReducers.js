@@ -25,7 +25,12 @@ import {
   GET_ALL_USERS_REQUEST,
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
-  USER_DELETE_FAIL
+  USER_DELETE_FAIL,
+  USER_IMAGE,
+  USER_IMAGE_SUCCESS,
+  USER_IMAGE_REQUEST,
+  USER_IMAGE_FAIL,
+  SET_USER_IMAGE
 } from "../../types/userTypes"
 
 export const userLoginReducer = (state = {}, action) => {
@@ -131,6 +136,7 @@ export const userUpdateProfileReducer = (state = {}, action) => {
     case USER_UPDATE_PROFILE_REQUEST:
       return {loading: true, success:false}
     case USER_UPDATE_PROFILE_SUCCESS:
+      console.log('Why is userInfo not updating', action.payload)
       return {loading: false, success:true, userInfo: action.payload}
     case USER_UPDATE_PROFILE_FAIL:
       return { loading: false,success:false, error: action.payload }
@@ -171,6 +177,18 @@ export const setPasswordReducer = (state = {password:''}, action) => {
       return action.payload
     case CLEAR_USER_PASSWORD:
       return action.payload
+    default:
+      return state
+  }
+}
+
+export const setUserImageReducer = (state = {}, action) => {
+  switch (action.type) {
+    
+    case SET_USER_IMAGE:
+      return { loading: true }
+    case USER_IMAGE_SUCCESS:
+      return {loading: false, success: true}
     default:
       return state
   }

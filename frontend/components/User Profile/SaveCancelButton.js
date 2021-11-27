@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserProfile } from "../../redux/actions/userActions";
+import { updateUserProfile, updateUserProfileImage } from "../../redux/actions/userActions";
 import Link from 'next/link';
 
 
@@ -14,7 +14,15 @@ const SaveCancelButton = () => {
 
   const updateUserInfo = async (e) => {
     e.preventDefault()
-    await dispatch(updateUserProfile({id: userInfo._id, name:userName, email:email, password: password}))
+    console.log('On Save', userImage)
+    await dispatch(updateUserProfile({
+      id: userInfo._id,
+      name: userName,
+      email: email,
+      password: password      
+    }))
+    
+    
   }
 
   return (

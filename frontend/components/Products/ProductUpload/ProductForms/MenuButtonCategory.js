@@ -3,7 +3,7 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { Category } from '../Filters'
 import { useDispatch, useSelector } from 'react-redux'
-import {  setProductCategory } from '../../../../redux/actions/productUploadActions'
+import {  setProductCategory, setProductCategoryValidation } from '../../../../redux/actions/productUploadActions'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -18,9 +18,11 @@ const MenuButtonCategory = () => {
   useEffect(() => {
 
     const init = async () => {
-      if (productCategory.productCategory !== '' || productCategory !== '') {
+      if (selected !== 'Choose Category') {
         console.log('the category option which you have chosen is:', selected)
          await dispatch(setProductCategory(selected))
+      } else {
+        await dispatch(setProductCategoryValidation(false))
      }
     }
     init()
